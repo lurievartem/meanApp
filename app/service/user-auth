@@ -1,0 +1,19 @@
+var User = require('../models/user-model');
+var jwt  = require('./jwt-auth');
+
+module.exports = function(data, done){
+    process.nextTick(function(){
+        User.findOne({username: data.username, type: data.type}, function(err, user){
+            if(err) return done(err, null);
+
+            if(!user){
+                User.save(data, function(err, user){
+                    if(err) return done(err, null);
+                    done(null, { token: jwt.sign({ username: user.username, password: user.password }), name: data.name });
+                });
+            } else{
+                done(null, { token: jwt.sign({ username: user.username, password: user.password }), name: data.name });
+            }
+        });
+    });
+};

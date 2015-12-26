@@ -1,0 +1,67 @@
+<div class="modal fade" id="signModal"  role="dialog" >
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Sign</h4>
+            </div>
+            <div class="modal-body">
+                <div ng-form name="signup.userForm">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" class="form-control"  placeholder="Enter email" ng-model="signup.user.username"
+                               required
+                               ng-class="{ 'has-error': signup.userForm.email.$touched && signup.userForm.email.$invalid }">
+                        <!--todo add  email-available-validator -->
+                        <div class="help-block" ng-messages="signup.userForm.email.$error" ng-if="signup.submitted">
+                            <p ng-message="required">Email is required.</p>
+                            <p ng-message="email">Email is invalid.</p>
+                            <!-- todo delete comment <p ng-message="emailAvailable">Email is already use</p>-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" name="name" class="form-control"  placeholder="Enter name" ng-model="signup.user.name" required
+                               ng-class="{ 'has-error': signup.userForm.name.$touched && signup.userForm.name.$invalid }">
+                        <div class="help-block" ng-messages="signup.userForm.name.$error" ng-if="signup.submitted">
+                            <p ng-message="required">Name is required.</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" name="password" class="form-control" placeholder="Enter Password" ng-model="signup.user.password" required
+                               ng-class="{ 'has-error': signup.userForm.password.$touched && signup.userForm.password.$invalid }">
+                        <div class="help-block" ng-messages="signup.userForm.password.$error" ng-if="signup.submitted">
+                            <p ng-message="required">Password is required</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Date</label>
+                        <input type="date" name="date" class="form-control" ng-model="signup.user.date" required
+                               ng-class="{ 'has-error': signup.userForm.date.$touched && signup.userForm.date.$invalid }">
+                        <div class="help-block" ng-messages="signup.userForm.date.$error" ng-if="signup.submitted">
+                            <p ng-message="required">Date is required</p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="logo" ></label>
+                        <file-upload name="logo" on-start="signup.fileStartLoad()" on-download="signup.download(file)" on-end="signup.fileEndLoad()"></file-upload>
+                    </div>
+                    <div class="form-group">
+                        <span>Choose gender</span>
+                        <label><input type="radio" name="gender" value="male"  ng-model="signup.user.gender" required>Male</label>
+                        <label><input type="radio" name="gender" value="women" ng-model="signup.user.gender" required>Female</label>
+                        <div class="help-block" ng-messages="signup.userForm.gender.$error" ng-if="signup.submitted">
+                            <p ng-message="required">Gender is required</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="btn btn-default" data-dismiss="modal">Cancel</div>
+                <div ng-click="signup.saveUser()" class="btn btn-primary">Add</div>
+            </div>
+        </div>
+    </div>
+</div>
+
